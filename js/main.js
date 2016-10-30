@@ -14,7 +14,8 @@
  * @param locationObj.city
  * @param locationObj.region
  * @param locationObj.country
- * @param locationObj.loc
+ * @param locationObj.lat
+ * @param locationObj.lon
  *
  */
 
@@ -54,7 +55,7 @@
     var iconURL = "";
 
     /* function locationByIP() sets user's location information based upon the user's IP address
-     * using the webservice at http://ipinfo.io */
+     * using the webservice at http://ip-api.com */
     function locationByIP() {
         var locationRequest = new XMLHttpRequest();
         locationRequest.onreadystatechange = function () {
@@ -63,14 +64,13 @@
                 cityName = locationObj.city;                            // extract user's city, region, country.
                 regionName = locationObj.region;
                 countryName = locationObj.country;
-                var coordinates = locationObj.loc.split(",");           // extract user's longitude and latitude.
-                latitude = Number(coordinates[0]);
-                longitude = Number(coordinates[1]);
+                latitude = Number(locationObj.lat);
+                longitude = Number(locationObj.lon);
                 setCountryUnits();                                      // set units of measure, imperial or metric.
                 getWeatherData();                                       // get user's local weather.
             }
         };
-        locationRequest.open("GET", 'http://ipinfo.io/json', true);     // true sets asynchronous mode.
+        locationRequest.open("GET", 'http://ip-api.com/json', true);     // true sets asynchronous mode.
         locationRequest.send();                                         // send the information request to website.
     }
 
